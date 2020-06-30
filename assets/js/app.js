@@ -16,7 +16,7 @@ function addEventListeners() {
     /*
      Se genera un evento cuando se pulsa sobre el botón con id 'formulario' de tipo submit
      y ese evento llama a la funcion agregarTarea.
-     
+
      De igual modo se genera un evento si se pulsa sobre el elemento de la clase borrar-tarea
      usando delegation, es decir, se pulsa sobre listaTareas, que es un div, y luego se comprueba
      dentro del div hemos pulsado sobre la clase borrar-tarea
@@ -55,6 +55,9 @@ function agregarTarea(e) {
     li.appendChild(botonBorrar);
     // Añadir al div con id 'lista-tweets' el elemento de la lista para que se muestre por pantalla
     listaTareas.appendChild(li);
+    // Agregar los datos al LocalStorage, se llama a la función agregarTareaLocalStorage que
+    // recibe como parámetro la tarea, que es el valor del campo con la clase tweet
+    agregarTareaLocalStorage(tarea);
 }
 
 // Función de borrar tareas
@@ -68,4 +71,31 @@ function borrarTarea(e) {
         // Aviso al usuario
         alert('Tarea eliminada');
     }    
+}
+
+// Agregar tarea al LocalStorage
+function agregarTareaLocalStorage(tarea) {
+    // En esta función lo que hacemos es añadir las tareas al local storage
+    // Creo una variable para guardar las tareas, estas tareas lo primero que hará será
+    // traer lo que haya previamente en el local storage
+    let tareas;
+    tareas = obtenerTareasLocalStorage();
+    // Agregar la nueva tarea con la función push que añade en la última posición del arreglo la nueva tarea
+    tareas.push(tarea);
+    // Convertir de string a arreglo para local storage
+    localStorage.setItem('tweets', JSON.stringify(tareas))
+}
+
+// Se obtienen las tareas que haya guardas previamente en el local storage
+function obtenerTareasLocalStorage() {
+    let tareas;
+    // Revisamos los valores del LocalStorage
+    if (localStorage.getItem('tweets') === null) {
+        // Si no hay registros se crea un arreglo vacío
+        tareas = [];
+    } else {
+        // Si hay registros se crea un arreglo en base a los datos en formato JSON
+        tareas = JSON.parse(localStorage.getItem('tweets'));
+    }
+    return tareas;
 }
