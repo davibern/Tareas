@@ -13,9 +13,20 @@ const listaTareas = document.getElementById('lista-tweets');
 addEventListeners();
 
 function addEventListeners() {
-    // Se genera un evento cuando se pulsa sobre el botón con id 'formulario' de tipo submit
-    // y ese evento llama a la funcion agregarTarea
+    /*
+     Se genera un evento cuando se pulsa sobre el botón con id 'formulario' de tipo submit
+     y ese evento llama a la funcion agregarTarea.
+     
+     De igual modo se genera un evento si se pulsa sobre el elemento de la clase borrar-tarea
+     usando delegation, es decir, se pulsa sobre listaTareas, que es un div, y luego se comprueba
+     dentro del div hemos pulsado sobre la clase borrar-tarea
+    */
+
+    // Agregar tareas
     document.querySelector('#formulario').addEventListener('submit', agregarTarea);
+
+    // Borrar tareas
+    listaTareas.addEventListener('click', borrarTarea);
 }
 
 /*
@@ -26,7 +37,7 @@ function addEventListeners() {
 
 // Función agregarTarea: tomará el valor del campo textarea con id tweet y lo añadirá al localStorage
 function agregarTarea(e) {
-    // Se prevee usos masivos
+    // Cancelo cualquier elemento si es cancelable
     e.preventDefault();
     // Leer el valor del textarea
     const tarea = document.getElementById('tweet').value;
@@ -44,4 +55,17 @@ function agregarTarea(e) {
     li.appendChild(botonBorrar);
     // Añadir al div con id 'lista-tweets' el elemento de la lista para que se muestre por pantalla
     listaTareas.appendChild(li);
+}
+
+// Función de borrar tareas
+function borrarTarea(e) {
+    // Cancelo cualquier elemento si es cancelable
+    e.preventDefault();
+    // Compruebo si el elemento sobre el que estoy haciendo click es de la clase 'borrar-tarea'
+    if (e.target.className === 'borrar-tarea') {
+        // Si lo es tomamos el elemento anterior, que es <li></li> y lo eliminio
+        console.log(e.target.parentElement.remove());
+        // Aviso al usuario
+        alert('Tarea eliminada');
+    }    
 }
