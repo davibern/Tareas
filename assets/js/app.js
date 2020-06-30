@@ -27,6 +27,9 @@ function addEventListeners() {
 
     // Borrar tareas
     listaTareas.addEventListener('click', borrarTarea);
+
+    // Cargar contenido cargado en el LocalStorage, este evento ('DOMContentLoaded') carga cuando toda la página ha cargado y está lista
+    document.addEventListener('DOMContentLoaded', localStorageListo);
 }
 
 /*
@@ -46,7 +49,7 @@ function agregarTarea(e) {
     // Añadir al botón una clase que se llama 'borrar-tarea'
     botonBorrar.classList = 'borrar-tarea';
     // Y añadirle al dicho elemento de enlace el valor de 'X'
-    botonBorrar.innerText = ' X';
+    botonBorrar.innerText = 'X';
     // Crear elemento y añadirle el contenido a una lista
     const li = document.createElement('li');
     // Añadir al elemento de la lista el valor del campo tarea
@@ -86,7 +89,7 @@ function agregarTareaLocalStorage(tarea) {
     localStorage.setItem('tweets', JSON.stringify(tareas))
 }
 
-// Se obtienen las tareas que haya guardas previamente en el local storage
+// Se obtienen las tareas que haya guardas previamente en el local storage, retorna un arreglo
 function obtenerTareasLocalStorage() {
     let tareas;
     // Revisamos los valores del LocalStorage
@@ -98,4 +101,28 @@ function obtenerTareasLocalStorage() {
         tareas = JSON.parse(localStorage.getItem('tweets'));
     }
     return tareas;
+}
+
+// Mostrar datos de LocalStorage en la lista de tareas
+function localStorageListo() {
+    let tareas;
+
+    // Se guarda en el arreglo el contenido del LocalStorage
+    tareas = obtenerTareasLocalStorage();
+
+    // Se recorre con un foreach el arreglo y se van agregando las tareas
+    tareas.forEach(function(tarea) {
+        // crear botón de eliminar
+        const botonBorrar = document.createElement('a');
+        botonBorrar.classList = 'borrar-tarea';
+        botonBorrar.innerText = 'X'
+
+        // Crear elemento y añadirlo al contenido de la lista
+        const li = document.createElement('li');
+        li.innerText = tarea;
+        // Agrega el botón de borrar a la tarea
+        li.appendChild(botonBorrar);
+        // Agrega la tarea a la lista
+        listaTareas.appendChild(li);
+    });
 }
