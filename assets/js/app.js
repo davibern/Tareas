@@ -70,9 +70,9 @@ function borrarTarea(e) {
     // Compruebo si el elemento sobre el que estoy haciendo click es de la clase 'borrar-tarea'
     if (e.target.className === 'borrar-tarea') {
         // Si lo es tomamos el elemento anterior, que es <li></li> y lo eliminio
-        console.log(e.target.parentElement.remove());
-        // Aviso al usuario
-        alert('Tarea eliminada');
+        e.target.parentElement.remove();
+        // Eliminar la tarea del LocalStorage
+        borrarTareaLocalStorage(e.target.parentElement.innerText);
     }    
 }
 
@@ -125,4 +125,29 @@ function localStorageListo() {
         // Agrega la tarea a la lista
         listaTareas.appendChild(li);
     });
+}
+
+// Eliminar tarea del LocalStorage
+function borrarTareaLocalStorage(tarea) {
+    // Crear variables que contendrá el texto que se buscará eliminar del LocalStorage y del arreglo actual del LocalStorage
+    let tareas;
+    let tareaBorrar;
+    
+    // Elimina la X de la tarea
+    tareaBorrar = tarea.substring(0, tarea.length - 1);
+
+    // Se trae el contenido del LocalStorage
+    tareas = obtenerTareasLocalStorage();
+
+    // Con un foreach se busca si el texto a buscar coincide con alguno del arreglo
+    // Para poder eliminarlo se agrega index para conocer su posición
+    // Si se encuentra se elimina del arreglo con splice, la posición y la cantidad a eliminar
+    tareas.forEach(function(tarea, index){
+        if (tareaBorrar === tarea) {
+            tareas.splice(index, 1);
+        }
+    });
+    
+    // Luego se sustituye el contenido actual del LocalStorage
+    localStorage.setItem('tweets', JSON.stringify(tareas));
 }
