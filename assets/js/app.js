@@ -61,6 +61,8 @@ function agregarTarea(e) {
     // Agregar los datos al LocalStorage, se llama a la función agregarTareaLocalStorage que
     // recibe como parámetro la tarea, que es el valor del campo con la clase tweet
     agregarTareaLocalStorage(tarea);
+    // Limpiar caja de texto
+    limpiarTarea();
 }
 
 // Función de borrar tareas
@@ -150,4 +152,10 @@ function borrarTareaLocalStorage(tarea) {
     
     // Luego se sustituye el contenido actual del LocalStorage
     localStorage.setItem('tweets', JSON.stringify(tareas));
+}
+
+// Limpar texto del textarea cuando se agrega una tarea nueva
+function limpiarTarea() {
+    let tarea = document.getElementById('tweet');
+    tarea.value = '';
 }
