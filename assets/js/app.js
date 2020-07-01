@@ -43,7 +43,7 @@ function agregarTarea(e) {
     // Cancelo cualquier elemento si es cancelable
     e.preventDefault();
     // Leer el valor del textarea
-    const tarea = document.getElementById('tweet').value;
+    const tarea = document.getElementById('tweet').value.trim();
     // Crear botón de eliminar tarea
     const botonBorrar = document.createElement('a');
     // Añadir al botón una clase que se llama 'borrar-tarea'
