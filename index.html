@@ -17,22 +17,25 @@
             <h1>Mis Tareas (Novedades)</h1>
             <div class="row">
                 <div class="six columns">
-                    <label for="tweet">Nueva Tarea:</label>
+                    <label for="tarea">Nueva Tarea:</label>
                     <form action="#" id="formulario">
-                            <label for="tweet"></label>
-                            <textarea id="tweet" class="u-full-width"></textarea>
+                            <label for="tarea"></label>
+                            <textarea id="tarea" class="u-full-width"></textarea>
                             <input type="submit" class="button u-full-width button-primary" value="Agregar">
                     </form>
                 </div>
                 <div class="six columns">
                     <h2>Mis Tareas</h2>
-                    <div id="lista-tweets"></div>
+                    <div id="lista-tareas"></div>
                 </div>
             </div>
-
         </div>
-    </div> <!--#contenido-->
+    </div>
 
-    <script src="assets/js/app.js"></script>
+    <audio id="audio">
+        <source type="audio/wav" src="assets/media/done.wav">
+    </audio>
+
+    <script type="module" src="assets/js/app.js"></script>
 </body>
 </html>
